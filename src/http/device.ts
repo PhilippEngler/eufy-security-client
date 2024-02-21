@@ -1998,7 +1998,7 @@ export class Camera extends Device {
                                         }
                                     }).catch((err) => {
                                         const error = ensureError(err);
-                                        rootHTTPLogger.debug(`Camera process push notification - CusPushEvent.SECURITY - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                        rootHTTPLogger.error(`Camera process push notification - CusPushEvent.SECURITY - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                     });
                                 }
                             });
@@ -2010,7 +2010,7 @@ export class Camera extends Device {
                             }
                         }).catch((err) => {
                             const error = ensureError(err);
-                            rootHTTPLogger.debug(`Camera process push notification - CusPushEvent.SECURITY - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                            rootHTTPLogger.error(`Camera process push notification - CusPushEvent.SECURITY - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                         });
                     }
                     if (message.fetch_id !== undefined) {
@@ -2034,7 +2034,7 @@ export class Camera extends Device {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`Camera process push notification - CusPushEvent.SECURITY - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`Camera process push notification - CusPushEvent.SECURITY - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             } else if (message.msg_type === DeviceType.HB3) {
                 if (message.device_sn === this.getSerial()) {
@@ -2049,7 +2049,7 @@ export class Camera extends Device {
                                             }
                                         }).catch((err) => {
                                             const error = ensureError(err);
-                                            rootHTTPLogger.debug(`Camera process push notification - HB3PairedDevicePushEvent - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                            rootHTTPLogger.error(`Camera process push notification - HB3PairedDevicePushEvent - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                         });
                                     }
                                 });
@@ -2061,7 +2061,7 @@ export class Camera extends Device {
                                 }
                             }).catch((err) => {
                                 const error = ensureError(err);
-                                rootHTTPLogger.debug(`Camera process push notification - HB3PairedDevicePushEvent - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                rootHTTPLogger.error(`Camera process push notification - HB3PairedDevicePushEvent - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                             });
                         }
                         switch (message.event_type) {
@@ -2165,7 +2165,7 @@ export class Camera extends Device {
                         }
                     } catch (err) {
                         const error = ensureError(err);
-                        rootHTTPLogger.debug(`Camera process push notification - HB3PairedDevicePushEvent - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                        rootHTTPLogger.error(`Camera process push notification - HB3PairedDevicePushEvent - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                     }
                 }
             }
@@ -2217,7 +2217,7 @@ export class SoloCamera extends Camera {
                                         }
                                     }).catch((err) => {
                                         const error = ensureError(err);
-                                        rootHTTPLogger.debug(`SoloCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                        rootHTTPLogger.error(`SoloCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                     });
                                 }
                             });
@@ -2229,7 +2229,7 @@ export class SoloCamera extends Camera {
                             }
                         }).catch((err) => {
                             const error = ensureError(err);
-                            rootHTTPLogger.debug(`SoloCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                            rootHTTPLogger.error(`SoloCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                         });
                     }
                     switch (message.event_type) {
@@ -2257,7 +2257,7 @@ export class SoloCamera extends Camera {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`SoloCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`SoloCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -2322,7 +2322,7 @@ export class IndoorCamera extends Camera {
                                         }
                                     }).catch((err) => {
                                         const error = ensureError(err);
-                                        rootHTTPLogger.debug(`IndoorCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                        rootHTTPLogger.error(`IndoorCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                     });
                                 }
                             });
@@ -2334,7 +2334,7 @@ export class IndoorCamera extends Camera {
                             }
                         }).catch((err) => {
                             const error = ensureError(err);
-                            rootHTTPLogger.debug(`IndoorCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                            rootHTTPLogger.error(`IndoorCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                         });
                     }
                     switch (message.event_type) {
@@ -2386,7 +2386,7 @@ export class IndoorCamera extends Camera {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`IndoorCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`IndoorCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -2479,7 +2479,7 @@ export class DoorbellCamera extends Camera {
                                         }
                                     }).catch((err) => {
                                         const error = ensureError(err);
-                                        rootHTTPLogger.debug(`DoorbellCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                        rootHTTPLogger.error(`DoorbellCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                     });
                                 }
                             });
@@ -2491,7 +2491,7 @@ export class DoorbellCamera extends Camera {
                             }
                         }).catch((err) => {
                             const error = ensureError(err);
-                            rootHTTPLogger.debug(`DoorbellCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                            rootHTTPLogger.error(`DoorbellCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                         });
                     }
                     switch (message.event_type) {
@@ -2576,7 +2576,7 @@ export class DoorbellCamera extends Camera {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`DoorbellCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`DoorbellCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -2687,7 +2687,7 @@ export class FloodlightCamera extends Camera {
                                         }
                                     }).catch((err) => {
                                         const error = ensureError(err);
-                                        rootHTTPLogger.debug(`FloodlightCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                        rootHTTPLogger.error(`FloodlightCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                     });
                                 }
                             });
@@ -2699,7 +2699,7 @@ export class FloodlightCamera extends Camera {
                             }
                         }).catch((err) => {
                             const error = ensureError(err);
-                            rootHTTPLogger.debug(`FloodlightCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                            rootHTTPLogger.error(`FloodlightCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                         });
                     }
                     switch (message.event_type) {
@@ -2727,7 +2727,7 @@ export class FloodlightCamera extends Camera {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`FloodlightCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`FloodlightCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -2825,7 +2825,7 @@ export class WallLightCam extends Camera {
                                         }
                                     }).catch((err) => {
                                         const error = ensureError(err);
-                                        rootHTTPLogger.debug(`WallLightCam process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                        rootHTTPLogger.error(`WallLightCam process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                     });
                                 }
                             });
@@ -2837,7 +2837,7 @@ export class WallLightCam extends Camera {
                             }
                         }).catch((err) => {
                             const error = ensureError(err);
-                            rootHTTPLogger.debug(`WallLightCam process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                            rootHTTPLogger.error(`WallLightCam process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                         });
                     }
                     switch (message.event_type) {
@@ -2865,7 +2865,7 @@ export class WallLightCam extends Camera {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`WallLightCam process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`WallLightCam process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -2964,7 +2964,7 @@ export class GarageCamera extends Camera {
                                         }
                                     }).catch((err) => {
                                         const error = ensureError(err);
-                                        rootHTTPLogger.debug(`GarageCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                                        rootHTTPLogger.error(`GarageCamera process push notification - Device Get picture - Fallback Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                                     });
                                 }
                             });
@@ -2976,7 +2976,7 @@ export class GarageCamera extends Camera {
                             }
                         }).catch((err) => {
                             const error = ensureError(err);
-                            rootHTTPLogger.debug(`GarageCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                            rootHTTPLogger.error(`GarageCamera process push notification - Device Get picture - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                         });
                     }
                     switch (message.event_type) {
@@ -3013,7 +3013,7 @@ export class GarageCamera extends Camera {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`GarageCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`GarageCamera process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -3064,7 +3064,7 @@ export class EntrySensor extends Sensor {
                     }
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`EntrySensor process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`EntrySensor process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -3146,7 +3146,7 @@ export class MotionSensor extends Sensor {
                     }, eventDurationSeconds * 1000));
                 } catch (err) {
                     const error = ensureError(err);
-                    rootHTTPLogger.debug(`MotionSensor process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
+                    rootHTTPLogger.error(`MotionSensor process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), message: JSON.stringify(message), eventDurationSeconds: eventDurationSeconds });
                 }
             }
         }
@@ -3320,7 +3320,7 @@ export class Lock extends Device {
                 }
             } catch (err) {
                 const error = ensureError(err);
-                rootHTTPLogger.debug(`Lock process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), eventType: eventType, eventTime: eventTime, eventDurationSeconds: eventDurationSeconds, source: source });
+                rootHTTPLogger.error(`Lock process push notification - Error`, { error: getError(error), deviceSN: this.getSerial(), eventType: eventType, eventTime: eventTime, eventDurationSeconds: eventDurationSeconds, source: source });
             }
         }
     }
