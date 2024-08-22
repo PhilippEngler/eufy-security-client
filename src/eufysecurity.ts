@@ -646,6 +646,14 @@ export class EufySecurity extends TypedEmitter<EufySecurityEvents> {
                     this.devicesLoaded = waitForEvent<void>(this.loadingEmitter, "devices loaded");
                 let new_device: Promise<Device>;
 
+                if (device.device_sn === device.station_sn) {
+                    if (Object.values(DeviceType).includes(device.device_type*-1)) {
+                        device.device_type = device.device_type*-1;
+                        rootMainLogger.debug(`Device ${device.device_sn} is a solo device and has different properties for solo and HB3-connected devices. Using deviceType ${device.device_type}`);
+                    } else {
+                        rootMainLogger.debug(`Device ${device.device_sn} is a solo device and has same properties for solo and HB-connected devices. Using deviceType ${device.device_type}`);
+                    }
+                }
                 if (Device.isIndoorCamera(device.device_type)) {
                     new_device = IndoorCamera.getInstance(this.api, device, deviceConfig);
                 } else if (Device.isSoloCameras(device.device_type)) {
