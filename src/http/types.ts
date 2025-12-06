@@ -1269,6 +1269,11 @@ export const DeviceWifiRSSIEntrySensorProperty: PropertyMetadataNumeric = {
     key: CommandType.CMD_GET_SUB1G_RSSI,
 };
 
+export const DeviceWifiRSSIMotionSensorProperty: PropertyMetadataNumeric = {
+    ...DeviceWifiRSSIProperty,
+    key: CommandType.CMD_GET_SUB1G_RSSI,
+};
+
 export const DeviceWifiRSSIKeypadProperty: PropertyMetadataNumeric = {
     ...DeviceWifiRSSIProperty,
     key: CommandType.CMD_GET_SUB1G_RSSI,
@@ -1364,6 +1369,14 @@ export const DeviceStatusLedT8200XProperty: PropertyMetadataBoolean = {
     key:ParamType.COMMAND_LED_NIGHT_OPEN,
     commandId: ParamType.COMMAND_LED_NIGHT_OPEN,
 };
+
+/* Motion sensor (T8910) status led property is set to "writeable: false"
+   because it cannot be set by the client currently. */
+export const DeviceStatusLedMotionSensorProperty: PropertyMetadataBoolean = {
+    ...DeviceStatusLedProperty,
+    key:CommandType.CMD_MOTION_SENSOR_ENABLE_LED,
+    writeable: false,
+}
 
 export const DeviceMotionDetectionProperty: PropertyMetadataBoolean = {
     key: CommandType.CMD_PIR_SWITCH,
@@ -1880,6 +1893,24 @@ export const DeviceMotionDetectionSensitivityGarageCameraProperty: PropertyMetad
     key: CommandType.CMD_SET_MOTION_SENSITIVITY,
     min: 0,
     max: 4,
+}
+
+/* Motion sensor (T8910) motion detection sensitivity property is set to "writeable: false"
+   because it cannot be set by the client currently. */
+export const DeviceMotionDetectionSensitivityMotionSensorProperty: PropertyMetadataNumeric = {
+    key: CommandType.CMD_MOTION_SENSOR_SET_PIR_SENSITIVITY,
+    name: PropertyName.DeviceMotionDetectionSensitivity,
+    label: "Motion Detection Sensitivity",
+    readable: true,
+    writeable: false,
+    type: "number",
+    states: {
+        8: "9-11m",
+        18: "7-9m",
+        37: "6-7m",
+        53: "5-6m",
+        80: "3-5m",
+    },
 }
 
 export const DeviceHiddenMotionDetectionSensitivityWiredDoorbellProperty: PropertyMetadataNumeric = {
@@ -7602,8 +7633,13 @@ export const DeviceProperties: Properties = {
     [DeviceType.MOTION_SENSOR]: {
         ...GenericDeviceProperties,
         [PropertyName.DeviceBatteryLow]: DeviceBatteryLowMotionSensorProperty,
+        [PropertyName.DeviceStatusLed]: DeviceStatusLedMotionSensorProperty,
         [PropertyName.DeviceMotionDetected]: DeviceMotionDetectedProperty,
+        [PropertyName.DeviceMotionDetectionSensitivity]: DeviceMotionDetectionSensitivityMotionSensorProperty,
         [PropertyName.DeviceMotionSensorPIREvent]: DeviceMotionSensorPIREventProperty,
+        [PropertyName.DeviceState]: DeviceStateProperty,
+        [PropertyName.DeviceWifiRSSI]: DeviceWifiRSSIMotionSensorProperty,
+        [PropertyName.DeviceWifiSignalLevel]: DeviceWifiSignalLevelProperty,
     },
     [DeviceType.SENSOR]: {
         ...GenericDeviceProperties,
