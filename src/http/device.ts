@@ -14,7 +14,7 @@ import { getError, isEmpty, validValue } from "../utils";
 import { InvalidPropertyError, PropertyNotSupportedError } from "./error";
 import { DeviceSmartLockNotifyData } from "../mqtt/model";
 import { DynamicLighting, InternalColoredLighting, InternalDynamicLighting, RGBColor, VideoStreamingRecordingQuality } from "../p2p";
-import { ensureError } from "../error";
+import { BaseError, ensureError } from "../error";
 import { rootHTTPLogger } from "../logging"
 import { Station } from "./station";
 
@@ -60,9 +60,15 @@ export class Device extends TypedEmitter<DeviceEvents> {
             if (this.rawDevice[property.key] !== undefined && typeof property.key === "string") {
                 if (property.key === "cover_path" && !this.getPropertyValue(property.name) && this.rawDevice[property.key] !== "") {
                     // First image initialisation if no image has been set yet and a cloud value is available
-                    this.updateProperty(property.name, this.convertRawPropertyValue(property, getImagePath(this.rawDevice[property.key])));
+                    const convertedValue = this.convertRawPropertyValue(property, getImagePath(this.rawDevice[property.key]));
+                    if (convertedValue !== undefined) {
+                        this.updateProperty(property.name, convertedValue);
+                    }
                 } else {
-                    this.updateProperty(property.name, this.convertRawPropertyValue(property, this.rawDevice[property.key] as string));
+                    const convertedValue = this.convertRawPropertyValue(property, this.rawDevice[property.key] as string);
+                    if (convertedValue !== undefined) {
+                        this.updateProperty(property.name, convertedValue);
+                    }
                 }
             } else if (this.properties[property.name] === undefined && property.default !== undefined && !this.ready) {
                 this.updateProperty(property.name, property.default);
@@ -155,7 +161,12 @@ export class Device extends TypedEmitter<DeviceEvents> {
             for (const property of Object.values(metadata)) {
                 if (property.key === type) {
                     try {
-                        this.updateProperty(property.name, this.convertRawPropertyValue(property, this.rawProperties[type].value));
+                        const convertedValue = this.convertRawPropertyValue(property, this.rawProperties[type].value);
+                        if (convertedValue !== undefined) {
+                            this.updateProperty(property.name, convertedValue);
+                        } else {
+                            throw new BaseError("Failed to convert value - Got undefined");
+                        }
                     } catch (err) {
                         const error = ensureError(err);
                         if (error instanceof PropertyNotSupportedError) {
@@ -171,7 +182,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
         return false;
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             const val = value as any;
             if (property.key === ParamType.PRIVATE_MODE || property.key === ParamType.OPEN_DEVICE || property.key === CommandType.CMD_DEVS_SWITCH) {
@@ -1974,7 +1985,7 @@ export class Camera extends Device {
         return "cameras";
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_SET_AUDIO_MUTE_RECORD:
@@ -2326,7 +2337,7 @@ export class SoloCamera extends Camera {
         return this.getPropertyValue(PropertyName.DeviceMotionDetection);
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_DEV_RECORD_AUTOSTOP:
@@ -2768,7 +2779,7 @@ export class FloodlightCamera extends Camera {
         return this.getPropertyValue(PropertyName.DeviceMotionDetection);
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_DEV_RECORD_AUTOSTOP:
@@ -2870,7 +2881,7 @@ export class WallLightCam extends Camera {
         return this.getPropertyValue(PropertyName.DeviceMotionDetection);
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_DEV_RECORD_AUTOSTOP:
@@ -2992,7 +3003,7 @@ export class GarageCamera extends Camera {
         return this.getPropertyValue(PropertyName.DeviceMotionDetection);
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_SET_AUDIO_MUTE_RECORD:
@@ -3621,7 +3632,7 @@ export class Lock extends Device {
         return payload.getData();
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_DOORLOCK_SET_PUSH_MODE:
@@ -3829,7 +3840,7 @@ export class Keypad extends Device {
         return this.getPropertyValue(PropertyName.DeviceBatteryIsCharging);
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_KEYPAD_BATTERY_CHARGER_STATE:
@@ -3989,7 +4000,7 @@ export class SmartSafe extends Device {
         return payload.getData();
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             if (property.key === CommandType.CMD_SMARTSAFE_REMOTE_OPEN_TYPE) {
                 switch (property.name) {
@@ -4186,7 +4197,7 @@ export class Tracker extends Device {
         return "tracker";
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case TrackerCommandType.COMMAND_NEW_LOCATION:
@@ -4282,7 +4293,7 @@ export class DoorbellLock extends DoorbellCamera {
         }
     }
 
-    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue {
+    protected convertRawPropertyValue(property: PropertyMetadataAny, value: string): PropertyValue | undefined {
         try {
             switch (property.key) {
                 case CommandType.CMD_DEV_RECORD_AUTOSTOP:

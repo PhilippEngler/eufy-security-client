@@ -37,7 +37,7 @@
     "url": "https://github.com/bropat/eufy-security-client"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "@cospired/i18n-iso-languages": "^4.2.0",
@@ -61,14 +61,14 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^20.16.10",
+    "@types/node": "^22.19.1",
     "@types/node-rsa": "^1.1.4",
     "@types/node-schedule": "^2.1.7",
     "@types/qs": "^6.9.16",
     "@typescript-eslint/eslint-plugin": "^8.48.1",
     "@typescript-eslint/parser": "^8.48.1",
     "eslint": "^9.39.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.9.3"
   },
   "bugs": {
     "url": "https://github.com/bropat/eufy-security-client/issues"
